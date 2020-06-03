@@ -12,7 +12,9 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-d', '--dir', default='.',
 	help='Files directory. The default is current directory.')
 
+parser.add_argument('-m', '--mask', default='*',
+	help='File mask. The default is * (all files).')
+
 args = parser.parse_args()
-print(args)
 
 # Rename the files (only random names for now)
