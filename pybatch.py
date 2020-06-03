@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 
 # Ask user
-print('This will rename the files in the \'{}\' directory.'.format(args['directory']))
+print('This will rename the files in the \'{}\' directory.'.format(args.dir))
 choice = input('Proceed (Y/n)? ')
 if not (choice == 'y' or choice == 'Y' or choice == ''):
 	print('As you wish.')
