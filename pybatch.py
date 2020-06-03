@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser(
 [pseudo] randomly generated names.''')
 
 parser.add_argument('-d', '--dir', default='.',
-	help='Files directory. The default is current directory.')
+    help='Files directory. The default is current directory.')
 
 parser.add_argument('-m', '--mask', default='*',
 	help='File mask. The default is * (all files).')
@@ -50,5 +50,12 @@ if not (choice == 'y' or choice == 'Y' or choice == ''):
 # Change the directory
 os.chdir(directory)
 # Loop through the files
-for f in glob(file_mask):
-	print(f)
+for fname in glob(file_mask):
+	if os.path.isfile(fname):
+		# Generate the new name
+		ext = fname.split('.')[-1]
+		new_name = '{}.{}'.format(generate(6), ext)
+		# Rename the file
+		shutil.move(fname, new_name)
+		# Log the action
+		print('{} -> {}'.format(fname, new_name))
