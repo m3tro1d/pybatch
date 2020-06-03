@@ -29,4 +29,8 @@ if not (choice == 'y' or choice == 'Y' or choice == ''):
 	sys.exit(0)
 
 
-# Rename the files (only random names for now)
+# Change the directory
+os.chdir(directory)
+# Loop through the files
+for f in glob(file_mask):
+	print(f)
