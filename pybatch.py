@@ -54,7 +54,7 @@ for fname in glob(file_mask):
 	if os.path.isfile(fname):
 		# Generate the new name
 		ext = fname.split('.')[-1]
-		new_name = '{}.{}'.format(generate(6), ext)
+		new_name = '{}.{}'.format(gen_name(6), ext)
 		# Rename the file
 		shutil.move(fname, new_name)
 		# Log the action
