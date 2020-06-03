@@ -4,6 +4,7 @@ import argparse
 import shutil
 from glob import glob
 
+
 # Parse the input parameters
 parser = argparse.ArgumentParser(
 	description='''Renames all files in the directory that match the pattern with
