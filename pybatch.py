@@ -29,10 +29,10 @@ parser = argparse.ArgumentParser(
 [pseudo] randomly generated names.''')
 
 parser.add_argument('-d', '--dir', default='.',
-    help='Files directory. The default is current directory.')
+	help='files directory (default: current)')
 
 parser.add_argument('-m', '--mask', default='*',
-	help='File mask. The default is * (all files).')
+	help='file mask (default: * e.g. all files)')
 
 args = parser.parse_args()
 directory = os.path.abspath(args.dir)
