@@ -17,7 +17,7 @@ parser.add_argument('-m', '--mask', default='*',
 	help='File mask. The default is * (all files).')
 
 args = parser.parse_args()
-directory = args.dir
+directory = os.path.abspath(args.dir)
 file_mask = args.mask
 
 
