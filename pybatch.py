@@ -16,10 +16,12 @@ parser.add_argument('-m', '--mask', default='*',
 	help='File mask. The default is * (all files).')
 
 args = parser.parse_args()
+directory = args.dir
+file_mask = args.mask
 
 
 # Ask user
-print('This will rename the files in the \'{}\' directory.'.format(args.dir))
+print('This will rename the files in the \'{}\' directory.'.format(directory))
 choice = input('Proceed (Y/n)? ')
 if not (choice == 'y' or choice == 'Y' or choice == ''):
 	print('As you wish.')
