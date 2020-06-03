@@ -5,6 +5,24 @@ import shutil
 from glob import glob
 
 
+def gen_name(length, numbers=False, uppercase=False):
+	'''Returns a randomly generated name'''
+	name = ''
+	# Generating
+	for _ in range(length):
+		# Numbers
+		if numbers and randint(0, 1) == 1:
+			name += str(randint(0, 9))
+			continue
+		# Uppercase letters
+		if uppercase and randint(0, 1) == 1:
+			name += chr(randint(65, 90))
+			continue
+		# Plain boring letters
+		name += chr(randint(97, 122))
+	return name
+
+
 # Parse the input parameters
 parser = argparse.ArgumentParser(
 	description='''Renames all files in the directory that match the pattern with
