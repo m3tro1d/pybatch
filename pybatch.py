@@ -40,6 +40,12 @@ directory = os.path.abspath(args.dir)
 file_mask = args.mask
 
 
+# Check the directory
+if not os.path.isdir(directory):
+	print('The specified directory does not exist.')
+	sys.exit(1)
+
+
 # Ask user
 print('This will rename the files in the \'{}\' directory.'.format(directory))
 choice = input('Proceed (Y/n)? ')
