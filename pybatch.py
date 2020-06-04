@@ -44,6 +44,10 @@ file_mask = args.mask
 if not os.path.isdir(directory):
 	print('The specified directory does not exist.')
 	sys.exit(1)
+# Check the files
+if not glob(file_mask):
+	print('No files found for the specified mask.')
+	sys.exit(1)
 
 
 # Ask user
