@@ -29,14 +29,14 @@ parser = argparse.ArgumentParser(
 	description='''Renames all files in the directory that match the pattern with
 [pseudo] randomly generated names.''')
 
-parser.add_argument('-d', '--dir', default='.',
-	help='files directory (default: current)')
-
 parser.add_argument('-m', '--mask', default='*',
 	help='file mask (default: * e.g. all files)')
 
+parser.add_argument('DIRECTORY',
+	help='files directory')
+
 args = parser.parse_args()
-directory = os.path.abspath(args.dir)
+directory = os.path.abspath(args.DIRECTORY)
 file_mask = args.mask
 
 
