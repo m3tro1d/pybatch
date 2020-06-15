@@ -44,6 +44,9 @@ file_mask = args.mask
 if not os.path.isdir(directory):
 	print("The specified directory does not exist.")
 	sys.exit(1)
+
+# Change the directory
+os.chdir(directory)
 # Check the files
 if not glob(file_mask):
 	print("No files found for the specified mask.")
@@ -58,8 +61,6 @@ if not (choice == "y" or choice == "Y" or choice == ""):
 	sys.exit(0)
 
 
-# Change the directory
-os.chdir(directory)
 # Loop through the files
 for fname in glob(file_mask):
 	if os.path.isfile(fname):
