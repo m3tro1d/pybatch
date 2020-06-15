@@ -7,8 +7,8 @@ from glob import glob
 
 
 def gen_name(length, numbers=False, uppercase=False):
-	'''Returns a randomly generated name'''
-	name = ''
+	"""Returns a randomly generated name"""
+	name = ""
 	# Generating
 	for _ in range(length):
 		# Numbers
@@ -26,14 +26,14 @@ def gen_name(length, numbers=False, uppercase=False):
 
 # Parse the input parameters
 parser = argparse.ArgumentParser(
-	description='''Renames all files in the directory that match the pattern with
-[pseudo] randomly generated names.''')
+	description="""Renames all files in the directory that match the pattern with
+[pseudo] randomly generated names.""")
 
-parser.add_argument('-m', '--mask', default='*',
-	help='file mask (default: * e.g. all files)')
+parser.add_argument("-m", "--mask", default="*",
+	help="file mask (default: * e.g. all files)")
 
-parser.add_argument('DIRECTORY',
-	help='files directory')
+parser.add_argument("DIRECTORY",
+	help="files directory")
 
 args = parser.parse_args()
 directory = os.path.abspath(args.DIRECTORY)
@@ -42,19 +42,19 @@ file_mask = args.mask
 
 # Check the directory
 if not os.path.isdir(directory):
-	print('The specified directory does not exist.')
+	print("The specified directory does not exist.")
 	sys.exit(1)
 # Check the files
 if not glob(file_mask):
-	print('No files found for the specified mask.')
+	print("No files found for the specified mask.")
 	sys.exit(1)
 
 
 # Ask user
-print('This will rename the files in the \'{}\' directory.'.format(directory))
-choice = input('Proceed (Y/n)? ')
-if not (choice == 'y' or choice == 'Y' or choice == ''):
-	print('As you wish.')
+print("This will rename the files in the '{}' directory.".format(directory))
+choice = input("Proceed (Y/n)? ")
+if not (choice == "y" or choice == "Y" or choice == ""):
+	print("As you wish.")
 	sys.exit(0)
 
 
@@ -64,9 +64,9 @@ os.chdir(directory)
 for fname in glob(file_mask):
 	if os.path.isfile(fname):
 		# Generate the new name
-		ext = fname.split('.')[-1]
-		new_name = '{}.{}'.format(gen_name(6), ext)
+		ext = fname.split(".")[-1]
+		new_name = "{}.{}".format(gen_name(6), ext)
 		# Rename the file
 		shutil.move(fname, new_name)
 		# Log the action
-		print('{} -> {}'.format(fname, new_name))
+		print("{} -> {}".format(fname, new_name))
