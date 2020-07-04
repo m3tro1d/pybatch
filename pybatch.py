@@ -32,12 +32,16 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--mask", "-m", default="*",
 	help="file mask (default: * e.g. all files)")
 
+parser.add_argument("--length", "-l", type=int, default=6,
+	help="length of generated names (default: 6)")
+
 parser.add_argument("DIRECTORY",
 	help="files directory")
 
 args = parser.parse_args()
 directory = os.path.abspath(args.DIRECTORY)
 file_mask = args.mask
+name_length = args.length
 
 
 # Check the directory
