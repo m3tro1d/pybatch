@@ -1,13 +1,13 @@
-import os
-import sys
 import argparse
+import os
 import shutil
-from random import randint
+import sys
 from glob import glob
+from random import randint
 
 
 def gen_name(length, numbers=False, uppercase=False):
-	"""Returns a randomly generated name"""
+	"""Returns a [pseudo] randomly generated name"""
 	name = ""
 	# Generating
 	for _ in range(length):
@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser(
 	description="""Renames all files in the directory that match the pattern with
 [pseudo] randomly generated names.""")
 
-parser.add_argument("-m", "--mask", default="*",
+parser.add_argument("--mask", "-m", default="*",
 	help="file mask (default: * e.g. all files)")
 
 parser.add_argument("DIRECTORY",
@@ -63,11 +63,14 @@ if not (choice == "y" or choice == "Y" or choice == ""):
 
 # Loop through the files
 for fname in glob(file_mask):
+	# Process only files, not folders
 	if os.path.isfile(fname):
-		# Generate the new name
+		# Generate a new name
 		ext = fname.split(".")[-1]
 		new_name = "{}.{}".format(gen_name(6), ext)
+
 		# Rename the file
 		shutil.move(fname, new_name)
+
 		# Log the action
 		print("{} -> {}".format(fname, new_name))
