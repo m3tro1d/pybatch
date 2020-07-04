@@ -35,6 +35,9 @@ parser.add_argument("--mask", "-m", default="*",
 parser.add_argument("--length", "-l", type=int, default=6, metavar="LEN",
 	help="length of generated names (default: 6)")
 
+parser.add_argument("--numbers", "-n", action="store_true",
+	help="use numbers in generated names (default: False)")
+
 parser.add_argument("DIRECTORY",
 	help="files directory")
 
@@ -42,6 +45,7 @@ args = parser.parse_args()
 directory = os.path.abspath(args.DIRECTORY)
 file_mask = args.mask
 name_length = args.length
+use_numbers = args.numbers
 
 
 # Check the directory
