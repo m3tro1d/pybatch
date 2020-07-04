@@ -38,6 +38,9 @@ parser.add_argument("--length", "-l", type=int, default=6, metavar="LEN",
 parser.add_argument("--numbers", "-n", action="store_true",
 	help="use numbers in generated names (default: False)")
 
+parser.add_argument("--upper", "-u", action="store_true",
+	help="use upper-case letters in generated names (default: False)")
+
 parser.add_argument("DIRECTORY",
 	help="files directory")
 
@@ -46,6 +49,7 @@ directory = os.path.abspath(args.DIRECTORY)
 file_mask = args.mask
 name_length = args.length
 use_numbers = args.numbers
+use_upper = args.upper
 
 
 # Check the directory
@@ -75,7 +79,7 @@ for fname in glob(file_mask):
 	if os.path.isfile(fname):
 		# Generate a new name
 		ext = fname.split(".")[-1]
-		new_name = "{}.{}".format(gen_name(name_length, use_numbers), ext)
+		new_name = "{}.{}".format(gen_name(name_length, use_numbers, use_upper), ext)
 
 		# Rename the file
 		shutil.move(fname, new_name)
