@@ -26,8 +26,8 @@ def gen_name(length, numbers=False, uppercase=False):
 
 # Parse the input parameters
 parser = argparse.ArgumentParser(
-    description="""Renames all files in the directory that match the pattern with
-[pseudo] randomly generated names.""")
+    description="""Renames all files in the directory that match the pattern
+    with [pseudo] randomly generated names.""")
 
 parser.add_argument("--mask", "-m", default="*",
     help="file mask (default: * e.g. all files)")
