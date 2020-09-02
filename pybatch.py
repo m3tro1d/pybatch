@@ -88,4 +88,4 @@ for fname in filenames:
         # Rename the file
         shutil.move(fname, new_name)
         # Log the action
-        print("{} -> {}".format(fname, new_name))
+        print("{:>{}} -> {}".format(fname, longest_len, new_name))
