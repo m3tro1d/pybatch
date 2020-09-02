@@ -41,6 +41,9 @@ parser.add_argument("--numbers", "-n", action="store_true",
 parser.add_argument("--upper", "-u", action="store_true",
                     help="use upper-case letters in generated names")
 
+parser.add_argument("--numeric", "-N", action="store_true",
+                    help="use only numbers in generated names")
+
 parser.add_argument("DIRECTORY",
     help="files directory")
 
@@ -50,6 +53,7 @@ file_mask = args.mask
 name_length = args.length
 use_numbers = args.numbers
 use_upper = args.upper
+numeric = args.numeric
 
 
 # Check the directory
