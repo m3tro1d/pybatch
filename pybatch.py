@@ -95,11 +95,12 @@ for fname in filenames:
     # Process only files, not folders
     if os.path.isfile(fname):
         # Generate a new name
-        ext = fname.split(".")[-1]
         if not numeric:
-            new_name = "{}.{}".format(gen_name(name_length, use_numbers, use_upper), ext)
+            name = gen_name(name_length, use_numbers, use_upper)
         else:
-            new_name = "{}.{}".format(gen_numeric_name(name_length), ext)
+            name = gen_numeric_name(name_length)
+        ext = fname.split(".")[-1]
+        new_name = "{}.{}".format(name, ext)
         # Rename the file
         shutil.move(fname, new_name)
         # Log the action
