@@ -60,7 +60,8 @@ if not os.path.isdir(directory):
 # Change the directory
 os.chdir(directory)
 # Check the files
-if not glob(file_mask):
+filenames = glob(file_mask)
+if not filenames:
     print("No files found for the specified mask.")
     sys.exit(1)
 
