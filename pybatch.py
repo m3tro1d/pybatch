@@ -88,7 +88,10 @@ for fname in filenames:
     if os.path.isfile(fname):
         # Generate a new name
         ext = fname.split(".")[-1]
-        new_name = "{}.{}".format(gen_name(name_length, use_numbers, use_upper), ext)
+        if not numeric:
+            new_name = "{}.{}".format(gen_name(name_length, use_numbers, use_upper), ext)
+        else:
+            new_name = "{}.{}".format(gen_numeric_name(name_length), ext)
         # Rename the file
         shutil.move(fname, new_name)
         # Log the action
