@@ -74,6 +74,10 @@ if choice not in ("y", "Y", ""):
     sys.exit(0)
 
 
+# Find longest filename's length for later formatting
+longest_len = len(max(filenames, key=len))
+
+
 # Loop through the files
 for fname in glob(file_mask):
     # Process only files, not folders
