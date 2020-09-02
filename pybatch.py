@@ -30,16 +30,16 @@ parser = argparse.ArgumentParser(
     with [pseudo] randomly generated names.""")
 
 parser.add_argument("--mask", "-m", default="*",
-    help="file mask (default: * e.g. all files)")
+                    help="file mask (default: * e.g. all files)")
 
 parser.add_argument("--length", "-l", type=int, default=6, metavar="LEN",
-    help="length of generated names (default: 6)")
+                    help="length of generated names (default: 6)")
 
 parser.add_argument("--numbers", "-n", action="store_true",
-    help="use numbers in generated names (default: False)")
+                    help="use numbers in generated names")
 
 parser.add_argument("--upper", "-u", action="store_true",
-    help="use upper-case letters in generated names (default: False)")
+                    help="use upper-case letters in generated names")
 
 parser.add_argument("DIRECTORY",
     help="files directory")
@@ -68,7 +68,7 @@ if not glob(file_mask):
 # Ask user
 print("This will rename the files in the '{}' directory.".format(directory))
 choice = input("Proceed (Y/n)? ")
-if not (choice == "y" or choice == "Y" or choice == ""):
+if choice not in ("y", "Y", ""):
     print("As you wish.")
     sys.exit(0)
 
@@ -80,9 +80,7 @@ for fname in glob(file_mask):
         # Generate a new name
         ext = fname.split(".")[-1]
         new_name = "{}.{}".format(gen_name(name_length, use_numbers, use_upper), ext)
-
         # Rename the file
         shutil.move(fname, new_name)
-
         # Log the action
         print("{} -> {}".format(fname, new_name))
