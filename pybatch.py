@@ -24,6 +24,14 @@ def gen_name(length, numbers=False, uppercase=False):
     return name
 
 
+def gen_numeric_name(length):
+    """Returns a [pseudo] randomly generated name of numbers"""
+    name = ""
+    for _ in range(length):
+        name += str(randint(0, 9))
+    return name
+
+
 # Parse the input parameters
 parser = argparse.ArgumentParser(
     description="""Renames all files in the directory that match the pattern
