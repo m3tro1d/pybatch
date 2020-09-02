@@ -79,7 +79,7 @@ longest_len = len(max(filenames, key=len))
 
 
 # Loop through the files
-for fname in glob(file_mask):
+for fname in filenames:
     # Process only files, not folders
     if os.path.isfile(fname):
         # Generate a new name
