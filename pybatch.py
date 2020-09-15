@@ -105,8 +105,13 @@ longest_len = len(max(filenames, key=len))
 for fname in filenames:
     # Process only files, not folders
     if os.path.isfile(fname):
-        # Generate a new name
-        new_name = get_new_name(name_length, numeric, use_numbers, use_upper)
+        # Emulate a do-while loop
+        while True:
+            # Generate a new name...
+            new_name = get_new_name(name_length, numeric, use_numbers, use_upper)
+            # ... until it is original
+            if not os.path.isfile(new_name):
+                break
         # Rename the file
         shutil.move(fname, new_name)
         # Log the action
