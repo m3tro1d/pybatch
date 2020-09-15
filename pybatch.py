@@ -32,6 +32,17 @@ def gen_numeric_name(length):
     return name
 
 
+def get_new_name(name_length, numeric, use_numbers, use_upper):
+    # Returns a name according to the specified settings
+    if not numeric:
+        name = gen_name(name_length, use_numbers, use_upper)
+    else:
+        name = gen_numeric_name(name_length)
+    ext = fname.split(".")[-1]
+    new_name = "{}.{}".format(name, ext)
+    return new_name
+
+
 # Parse the input parameters
 parser = argparse.ArgumentParser(
     description="""Renames all files in the directory that match the pattern
@@ -95,12 +106,7 @@ for fname in filenames:
     # Process only files, not folders
     if os.path.isfile(fname):
         # Generate a new name
-        if not numeric:
-            name = gen_name(name_length, use_numbers, use_upper)
-        else:
-            name = gen_numeric_name(name_length)
-        ext = fname.split(".")[-1]
-        new_name = "{}.{}".format(name, ext)
+        new_name = get_new_name(name_length, numeric, use_numbers, use_upper)
         # Rename the file
         shutil.move(fname, new_name)
         # Log the action
