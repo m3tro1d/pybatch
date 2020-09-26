@@ -1,9 +1,9 @@
+from glob import glob
+from random import randint
 import argparse
 import os
 import shutil
 import sys
-from glob import glob
-from random import randint
 
 
 def gen_name(length, numbers=False, uppercase=False):
@@ -48,23 +48,29 @@ parser = argparse.ArgumentParser(
     description="""Renames all files in the directory that match the pattern
     with [pseudo] randomly generated names.""")
 
-parser.add_argument("--mask", "-m", default="*",
+parser.add_argument("--mask", "-m",
+                    default="*",
                     help="file mask (default: * e.g. all files)")
 
-parser.add_argument("--length", "-l", type=int, default=6, metavar="LEN",
+parser.add_argument("--length", "-l",
+                    metavar="LEN",
+                    type=int, default=6,
                     help="length of generated names (default: 6)")
 
-parser.add_argument("--numbers", "-n", action="store_true",
+parser.add_argument("--numbers", "-n",
+                    action="store_true",
                     help="use numbers in generated names")
 
-parser.add_argument("--upper", "-u", action="store_true",
+parser.add_argument("--upper", "-u",
+                    action="store_true",
                     help="use upper-case letters in generated names")
 
-parser.add_argument("--numeric", "-N", action="store_true",
+parser.add_argument("--numeric", "-N",
+                    action="store_true",
                     help="use only numbers in generated names")
 
 parser.add_argument("DIRECTORY",
-    help="files directory")
+                    help="files directory")
 
 args = parser.parse_args()
 directory = os.path.abspath(args.DIRECTORY)
@@ -97,7 +103,7 @@ if choice not in ("y", "Y", ""):
     sys.exit(0)
 
 
-# Find longest filename's length for later formatting
+# Find longest filename's length for proper formatting later
 longest_len = len(max(filenames, key=len))
 
 
@@ -108,7 +114,10 @@ for fname in filenames:
         # Emulate a do-while loop
         while True:
             # Generate a new name...
-            new_name = get_new_name(name_length, numeric, use_numbers, use_upper)
+            new_name = get_new_name(name_length,
+                                    numeric,
+                                    use_numbers,
+                                    use_upper)
             # ... until it is original
             if not os.path.isfile(new_name):
                 break
