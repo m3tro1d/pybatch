@@ -32,7 +32,7 @@ def gen_numeric_name(length):
     return name
 
 
-def get_new_name(name_length, numeric, use_numbers, use_upper):
+def get_new_name(fname, name_length, numeric, use_numbers, use_upper):
     # Returns a name according to the specified settings
     if not numeric:
         name = gen_name(name_length, use_numbers, use_upper)
@@ -41,6 +41,7 @@ def get_new_name(name_length, numeric, use_numbers, use_upper):
     ext = fname.split(".")[-1]
     new_name = "{}.{}".format(name, ext)
     return new_name
+
 
 def parse_arguments():
     """Processes the input arguments"""
@@ -66,6 +67,27 @@ def parse_arguments():
     parser.add_argument("DIRECTORY",
                         help="files directory")
     return parser.parse_args()
+
+
+def process_files(filenames, name_length, numeric,
+                  use_numbers, use_upper, longest_len):
+    """Processes the files in filenames according to the specified settings"""
+    # Loop through the files
+    for fname in filenames:
+        # Process only files, not folders
+        if os.path.isfile(fname):
+            # Emulate a do-while loop
+            while True:
+                # Generate a new name...
+                new_name = get_new_name(fname, name_length, numeric,
+                                        use_numbers, use_upper)
+                # ... until it is original
+                if not os.path.isfile(new_name):
+                    break
+            # Rename the file
+            shutil.move(fname, new_name)
+            # Log the action
+            print("{:>{}} -> {}".format(fname, longest_len, new_name))
 
 
 def main():
@@ -102,24 +124,9 @@ def main():
     # Find longest filename's length for proper formatting later
     longest_len = len(max(filenames, key=len))
 
-    # Loop through the files
-    for fname in filenames:
-        # Process only files, not folders
-        if os.path.isfile(fname):
-            # Emulate a do-while loop
-            while True:
-                # Generate a new name...
-                new_name = get_new_name(name_length,
-                                        numeric,
-                                        use_numbers,
-                                        use_upper)
-                # ... until it is original
-                if not os.path.isfile(new_name):
-                    break
-            # Rename the file
-            shutil.move(fname, new_name)
-            # Log the action
-            print("{:>{}} -> {}".format(fname, longest_len, new_name))
+    # Process the files
+    process_files(filenames, name_length, numeric,
+                  use_numbers, use_upper, longest_len)
 
 
 # Entry point
