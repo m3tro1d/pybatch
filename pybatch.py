@@ -43,85 +43,93 @@ def get_new_name(name_length, numeric, use_numbers, use_upper):
     return new_name
 
 
-# Parse the input parameters
-parser = argparse.ArgumentParser(
-    description="""Renames all files in the directory that match the pattern
-    with [pseudo] randomly generated names.""")
 
-parser.add_argument("--mask", "-m",
-                    default="*",
-                    help="file mask (default: * e.g. all files)")
+def main():
+    """Entry point of the script"""
+    # Parse the input parameters
+    parser = argparse.ArgumentParser(
+        description="""Renames all files in the directory that match the pattern
+        with [pseudo] randomly generated names.""")
 
-parser.add_argument("--length", "-l",
-                    metavar="LEN",
-                    type=int, default=6,
-                    help="length of generated names (default: 6)")
+    parser.add_argument("--mask", "-m",
+                        default="*",
+                        help="file mask (default: * e.g. all files)")
 
-parser.add_argument("--numbers", "-n",
-                    action="store_true",
-                    help="use numbers in generated names")
+    parser.add_argument("--length", "-l",
+                        metavar="LEN",
+                        type=int, default=6,
+                        help="length of generated names (default: 6)")
 
-parser.add_argument("--upper", "-u",
-                    action="store_true",
-                    help="use upper-case letters in generated names")
+    parser.add_argument("--numbers", "-n",
+                        action="store_true",
+                        help="use numbers in generated names")
 
-parser.add_argument("--numeric", "-N",
-                    action="store_true",
-                    help="use only numbers in generated names")
+    parser.add_argument("--upper", "-u",
+                        action="store_true",
+                        help="use upper-case letters in generated names")
 
-parser.add_argument("DIRECTORY",
-                    help="files directory")
+    parser.add_argument("--numeric", "-N",
+                        action="store_true",
+                        help="use only numbers in generated names")
 
-args = parser.parse_args()
-directory = os.path.abspath(args.DIRECTORY)
-file_mask = args.mask
-name_length = args.length
-use_numbers = args.numbers
-use_upper = args.upper
-numeric = args.numeric
+    parser.add_argument("DIRECTORY",
+                        help="files directory")
 
-
-# Check the directory
-if not os.path.isdir(directory):
-    print("The specified directory does not exist.")
-    sys.exit(1)
-
-# Change the directory
-os.chdir(directory)
-# Check the files
-filenames = glob(file_mask)
-if not filenames:
-    print("No files found for the specified mask.")
-    sys.exit(1)
+    args = parser.parse_args()
+    directory = os.path.abspath(args.DIRECTORY)
+    file_mask = args.mask
+    name_length = args.length
+    use_numbers = args.numbers
+    use_upper = args.upper
+    numeric = args.numeric
 
 
-# Ask user
-print("This will rename the files in the '{}' directory.".format(directory))
-choice = input("Proceed (Y/n)? ")
-if choice not in ("y", "Y", ""):
-    print("As you wish.")
-    sys.exit(0)
+    # Check the directory
+    if not os.path.isdir(directory):
+        print("The specified directory does not exist.")
+        sys.exit(1)
+
+    # Change the directory
+    os.chdir(directory)
+    # Check the files
+    filenames = glob(file_mask)
+    if not filenames:
+        print("No files found for the specified mask.")
+        sys.exit(1)
 
 
-# Find longest filename's length for proper formatting later
-longest_len = len(max(filenames, key=len))
+    # Ask user
+    print("This will rename the files in the '{}' directory.".format(directory))
+    choice = input("Proceed (Y/n)? ")
+    if choice not in ("y", "Y", ""):
+        print("As you wish.")
+        sys.exit(0)
 
 
-# Loop through the files
-for fname in filenames:
-    # Process only files, not folders
-    if os.path.isfile(fname):
-        # Emulate a do-while loop
-        while True:
-            # Generate a new name...
-            new_name = get_new_name(name_length,
-                                    numeric,
-                                    use_numbers,
-                                    use_upper)
-            # ... until it is original
-            if not os.path.isfile(new_name):
-                break
-        # Rename the file
-        shutil.move(fname, new_name)
-        # Log the action
-        print("{:>{}} -> {}".format(fname, longest_len, new_name))
+    # Find longest filename's length for proper formatting later
+    longest_len = len(max(filenames, key=len))
+
+
+    # Loop through the files
+    for fname in filenames:
+        # Process only files, not folders
+        if os.path.isfile(fname):
+            # Emulate a do-while loop
+            while True:
+                # Generate a new name...
+                new_name = get_new_name(name_length,
+                                        numeric,
+                                        use_numbers,
+                                        use_upper)
+                # ... until it is original
+                if not os.path.isfile(new_name):
+                    break
+            # Rename the file
+            shutil.move(fname, new_name)
+            # Log the action
+            print("{:>{}} -> {}".format(fname, longest_len, new_name))
+
+
+# Entry point
+if __name__ == "__main__":
+    main()
