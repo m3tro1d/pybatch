@@ -42,47 +42,42 @@ def get_new_name(name_length, numeric, use_numbers, use_upper):
     new_name = "{}.{}".format(name, ext)
     return new_name
 
+def parse_arguments():
+    """Processes the input arguments"""
+    parser = argparse.ArgumentParser(
+        description="""Renames all files in the directory that match the pattern
+        with [pseudo] randomly generated names.""")
+    parser.add_argument("--mask", "-m",
+                        default="*",
+                        help="file mask (default: * e.g. all files)")
+    parser.add_argument("--length", "-l",
+                        metavar="LEN",
+                        type=int, default=6,
+                        help="length of generated names (default: 6)")
+    parser.add_argument("--numbers", "-n",
+                        action="store_true",
+                        help="use numbers in generated names")
+    parser.add_argument("--upper", "-u",
+                        action="store_true",
+                        help="use upper-case letters in generated names")
+    parser.add_argument("--numeric", "-N",
+                        action="store_true",
+                        help="use only numbers in generated names")
+    parser.add_argument("DIRECTORY",
+                        help="files directory")
+    return parser.parse_args()
 
 
 def main():
     """Entry point of the script"""
     # Parse the input parameters
-    parser = argparse.ArgumentParser(
-        description="""Renames all files in the directory that match the pattern
-        with [pseudo] randomly generated names.""")
-
-    parser.add_argument("--mask", "-m",
-                        default="*",
-                        help="file mask (default: * e.g. all files)")
-
-    parser.add_argument("--length", "-l",
-                        metavar="LEN",
-                        type=int, default=6,
-                        help="length of generated names (default: 6)")
-
-    parser.add_argument("--numbers", "-n",
-                        action="store_true",
-                        help="use numbers in generated names")
-
-    parser.add_argument("--upper", "-u",
-                        action="store_true",
-                        help="use upper-case letters in generated names")
-
-    parser.add_argument("--numeric", "-N",
-                        action="store_true",
-                        help="use only numbers in generated names")
-
-    parser.add_argument("DIRECTORY",
-                        help="files directory")
-
-    args = parser.parse_args()
+    args = parse_arguments()
     directory = os.path.abspath(args.DIRECTORY)
     file_mask = args.mask
     name_length = args.length
     use_numbers = args.numbers
     use_upper = args.upper
     numeric = args.numeric
-
 
     # Check the directory
     if not os.path.isdir(directory):
@@ -97,7 +92,6 @@ def main():
         print("No files found for the specified mask.")
         sys.exit(1)
 
-
     # Ask user
     print("This will rename the files in the '{}' directory.".format(directory))
     choice = input("Proceed (Y/n)? ")
@@ -105,10 +99,8 @@ def main():
         print("As you wish.")
         sys.exit(0)
 
-
     # Find longest filename's length for proper formatting later
     longest_len = len(max(filenames, key=len))
-
 
     # Loop through the files
     for fname in filenames:
