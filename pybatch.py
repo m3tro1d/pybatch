@@ -33,7 +33,7 @@ def gen_numeric_name(length):
 
 
 def get_new_name(fname, name_length, numeric, use_numbers, use_upper):
-    # Returns a name according to the specified settings
+    """Returns a name according to the specified settings"""
     if not numeric:
         name = gen_name(name_length, use_numbers, use_upper)
     else:
