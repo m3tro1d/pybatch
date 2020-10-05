@@ -95,11 +95,6 @@ def main():
     # Parse the input parameters
     args = parse_arguments()
     directory = os.path.abspath(args.DIRECTORY)
-    file_mask = args.mask
-    name_length = args.length
-    use_numbers = args.numbers
-    use_upper = args.upper
-    numeric = args.numeric
 
     # Check the directory
     if not os.path.isdir(directory):
@@ -109,7 +104,7 @@ def main():
     # Change the directory
     os.chdir(directory)
     # Check the files
-    filenames = glob(file_mask)
+    filenames = glob(args.mask)
     if not filenames:
         print("No files found for the specified mask.")
         sys.exit(1)
@@ -125,8 +120,8 @@ def main():
     longest_len = len(max(filenames, key=len))
 
     # Process the files
-    process_files(filenames, name_length, numeric,
-                  use_numbers, use_upper, longest_len)
+    process_files(filenames, args.length, args.numeric,
+                  args.numbers, args.upper, longest_len)
 
 
 # Entry point
