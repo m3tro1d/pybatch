@@ -1,22 +1,20 @@
 # Pybatch
-This is just a simple script to rename all files with the randomly generated names. *Also first time I practiced the `argparse` module*.
+This is just a simple script to rename all files with the randomly generated names.
 
 ## Usage
 ```
-usage: pybatch.py [-h] [--mask MASK] [--length LEN] [--numbers] [--upper]
-                  [--numeric]
-                  DIRECTORY
+Usage: pybatch.py [OPTIONS] DIR
 
-positional arguments:
-  DIRECTORY             files directory
+DIR:
+  Directory of the files to be renamed
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --mask MASK, -m MASK  file mask (default: * e.g. all files)
-  --length LEN, -l LEN  length of generated names (default: 6)
-  --numbers, -n         use numbers in generated names
-  --upper, -u           use upper-case letters in generated names
-  --numeric, -N         use only numbers in generated names
+Options:
+  -h,  --help      show help
+  -m,  --mask      file mask (def: *)
+  -l,  --length    length of generated names (def: 6)
+  -n,  --numbers   use numbers (def: False)
+  -u,  --upper     use upper-case letters (def: False)
+  -N,  --numeric   use only numbers (def: False)
 ```
 
 **Note**: always double-check the directory that you are working with. Renaming cannot be undone.
