@@ -41,6 +41,30 @@ class CustomArgumentParser(argparse.ArgumentParser):
 # Functions
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def valid_dir(string):
+    """Checks if the string is a valid directory"""
+    path = os.path.abspath(string)
+    if not os.path.exists(path):
+        error = f"Directory does not exists: {path}"
+        raise argparse.ArgumentTypeError(error)
+    if not os.path.isdir(path):
+        error = f"Not a directory: {path}"
+        raise argparse.ArgumentTypeError(error)
+    return path
+
+
+def positive_int(string):
+    """Cheks if the string is a valid and positive integer"""
+    try:
+        value = int(string)
+        if value <= 0:
+            raise ValueError
+    except ValueError:
+        error = f"Invalid value: {string}"
+        raise argparse.ArgumentTypeError(error)
+    return value
+
+
 def gen_name(length, numbers=False, uppercase=False):
     """Returns a [pseudo] randomly generated name"""
     name = ""
@@ -84,7 +108,7 @@ def parse_arguments():
 
     parser.add_argument("-m", "--mask", default="*")
 
-    parser.add_argument("-l", "--length", default=6)
+    parser.add_argument("-l", "--length", default=6, type=positive_int)
 
     parser.add_argument("-n", "--numbers", action="store_true")
 
@@ -92,7 +116,7 @@ def parse_arguments():
 
     parser.add_argument("-N", "--numeric", action="store_true")
 
-    parser.add_argument("directory")
+    parser.add_argument("directory", type=valid_dir)
 
     args = parser.parse_args()
     return args
