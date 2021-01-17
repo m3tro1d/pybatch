@@ -2,10 +2,40 @@
 
 from glob import glob
 from random import randint
+from textwrap import dedent
 import argparse
 import os
 import shutil
 import sys
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Classes
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class CustomArgumentParser(argparse.ArgumentParser):
+    """Override ArgumentParser's help message"""
+    def format_help(self):
+        help_text = dedent(f"""\
+        Pybatch is a script for renaming all the files that match the pattern
+        with [pseudo] randomly generated names.
+
+        Usage: {self.prog} [OPTIONS] DIR
+
+        DIR:
+          Directory of the files to be renamed
+
+        Options:
+          -h,  --help      show help
+          -m,  --mask      file mask (def: *)
+          -l,  --length    length of generated names (def: 6)
+          -n,  --numbers   use numbers in generated names
+          -u,  --upper     use upper-case letters in generated names
+          -N,  --numeric   use only numbers in generated names
+
+        For more information visit:
+        https://github.com/m3tro1d/pybatch
+        """)
+        return help_text
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Functions
@@ -50,28 +80,22 @@ def get_new_name(fname, name_length, numeric, use_numbers, use_upper):
 
 def parse_arguments():
     """Processes the input arguments"""
-    parser = argparse.ArgumentParser(
-        description="""Renames all files in the directory that match the pattern
-        with [pseudo] randomly generated names.""")
-    parser.add_argument("--mask", "-m",
-                        default="*",
-                        help="file mask (default: * e.g. all files)")
-    parser.add_argument("--length", "-l",
-                        metavar="LEN",
-                        type=int, default=6,
-                        help="length of generated names (default: 6)")
-    parser.add_argument("--numbers", "-n",
-                        action="store_true",
-                        help="use numbers in generated names")
-    parser.add_argument("--upper", "-u",
-                        action="store_true",
-                        help="use upper-case letters in generated names")
-    parser.add_argument("--numeric", "-N",
-                        action="store_true",
-                        help="use only numbers in generated names")
-    parser.add_argument("DIRECTORY",
-                        help="files directory")
-    return parser.parse_args()
+    parser = CustomArgumentParser(usage="%(prog)s [OPTIONS] DIR")
+
+    parser.add_argument("-m", "--mask", default="*")
+
+    parser.add_argument("-l", "--length", default=6)
+
+    parser.add_argument("-n", "--numbers", action="store_true")
+
+    parser.add_argument("-u", "--upper", action="store_true")
+
+    parser.add_argument("-N", "--numeric", action="store_true")
+
+    parser.add_argument("DIRECTORY")
+
+    args = parser.parse_args()
+    return args
 
 
 def process_files(filenames, name_length, numeric,
