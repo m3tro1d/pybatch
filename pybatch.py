@@ -44,7 +44,7 @@ def get_new_name(fname, name_length, numeric, use_numbers, use_upper):
     else:
         name = gen_numeric_name(name_length)
     ext = fname.split(".")[-1]
-    new_name = "{}.{}".format(name, ext)
+    new_name = f"{name}.{ext}"
     return new_name
 
 
@@ -92,7 +92,7 @@ def process_files(filenames, name_length, numeric,
             # Rename the file
             shutil.move(fname, new_name)
             # Log the action
-            print("{:>{}} -> {}".format(fname, longest_len, new_name))
+            print(f"{fname : >{longest_len}} -> {new_name}")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Main script
@@ -118,7 +118,7 @@ def main():
         sys.exit(1)
 
     # Ask user
-    print("This will rename the files in the '{}' directory.".format(directory))
+    print(f"This will rename the files in the '{directory}' directory.")
     choice = input("Proceed (Y/n)? ")
     if choice not in ("y", "Y", ""):
         print("As you wish.")
