@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from glob import glob
 from random import randint
 import argparse
@@ -5,6 +7,9 @@ import os
 import shutil
 import sys
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Functions
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def gen_name(length, numbers=False, uppercase=False):
     """Returns a [pseudo] randomly generated name"""
@@ -89,6 +94,9 @@ def process_files(filenames, name_length, numeric,
             # Log the action
             print("{:>{}} -> {}".format(fname, longest_len, new_name))
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Main script
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def main():
     """Entry point of the script"""
