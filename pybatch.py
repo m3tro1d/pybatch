@@ -152,11 +152,6 @@ def main():
     args = parse_arguments()
     directory = args.directory
 
-    # Check the directory
-    if not os.path.isdir(directory):
-        print("The specified directory does not exist.")
-        sys.exit(1)
-
     # Change the directory
     os.chdir(directory)
     # Check the files
