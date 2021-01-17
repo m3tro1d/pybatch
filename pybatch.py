@@ -158,7 +158,7 @@ def main():
     filenames = glob(args.mask)
     if not filenames:
         print("No files found for the specified mask.")
-        sys.exit(1)
+        sys.exit(0)
 
     # Ask user
     print(f"This will rename the files in the '{directory}' directory.")
