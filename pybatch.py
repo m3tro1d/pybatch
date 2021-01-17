@@ -134,4 +134,8 @@ def main():
 
 # Entry point
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("User interrupt", file=sys.stderr)
+        sys.exit(1)
