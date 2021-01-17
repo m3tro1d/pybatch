@@ -26,11 +26,11 @@ class CustomArgumentParser(argparse.ArgumentParser):
 
         Options:
           -h,  --help      show help
-          -m,  --mask      file mask (def: *)
-          -l,  --length    length of generated names (def: 6)
-          -n,  --numbers   use numbers in generated names
-          -u,  --upper     use upper-case letters in generated names
-          -N,  --numeric   use only numbers in generated names
+          -m,  --mask      file mask (def: {self.get_default("mask")})
+          -l,  --length    length of generated names (def: {self.get_default("length")})
+          -n,  --numbers   use numbers (def: {self.get_default("numbers")})
+          -u,  --upper     use upper-case letters (def: {self.get_default("upper")})
+          -N,  --numeric   use only numbers (def: {self.get_default("numeric")})
 
         For more information visit:
         https://github.com/m3tro1d/pybatch
@@ -92,7 +92,7 @@ def parse_arguments():
 
     parser.add_argument("-N", "--numeric", action="store_true")
 
-    parser.add_argument("DIRECTORY")
+    parser.add_argument("directory")
 
     args = parser.parse_args()
     return args
@@ -126,7 +126,7 @@ def main():
     """Entry point of the script"""
     # Parse the input parameters
     args = parse_arguments()
-    directory = os.path.abspath(args.DIRECTORY)
+    directory = args.directory
 
     # Check the directory
     if not os.path.isdir(directory):
