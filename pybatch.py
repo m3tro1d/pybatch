@@ -148,12 +148,8 @@ def process_files(filenames, name_length, numeric,
 
 def main():
     """Entry point of the script"""
-    # Parse the input parameters
-    args = parse_arguments()
-    directory = args.directory
-
     # Change the directory
-    os.chdir(directory)
+    os.chdir(args.directory)
     # Check the files
     filenames = glob(args.mask)
     if not filenames:
@@ -161,7 +157,7 @@ def main():
         sys.exit(0)
 
     # Ask user
-    print(f"This will rename the files in the '{directory}' directory.")
+    print(f"This will rename the files in the '{args.directory}' directory.")
     choice = input("Proceed (Y/n)? ")
     if choice not in ("y", "Y", ""):
         print("As you wish.")
@@ -177,6 +173,8 @@ def main():
 
 # Entry point
 if __name__ == "__main__":
+    args = parse_arguments()
+
     try:
         main()
     except KeyboardInterrupt:
