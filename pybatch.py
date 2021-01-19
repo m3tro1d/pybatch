@@ -147,7 +147,7 @@ def process_files(filenames, name_length, numeric,
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def main():
-    """Entry point of the script"""
+    """Main script"""
     # Change the directory
     os.chdir(args.directory)
     # Check the files
